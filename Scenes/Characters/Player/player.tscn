@@ -135,10 +135,12 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animSprite")]
 script = ExtResource("1_jx1ny")
+animSprite = NodePath("AnimatedSprite3D")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_nvea7")
-animation = &"Idle"
-frame_progress = 0.340647
+animation = &"Move"
+frame_progress = 0.058103
