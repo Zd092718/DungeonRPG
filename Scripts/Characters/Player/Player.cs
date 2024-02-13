@@ -4,14 +4,10 @@ using System;
 public partial class Player : CharacterBody3D
 {
     [ExportGroup("Required Nodes")]
-    [Export] private AnimatedSprite3D animSprite;
-    [Export] private Camera3D camera;
-    private Vector2 direction = new();
-
-    public override void _Ready()
-    {
-
-    }
+    [Export] public AnimatedSprite3D animSprite;
+    [Export] public Camera3D camera;
+    [Export] public StateMachine stateMachineNode;
+    public Vector2 direction = new();
 
     public override void _PhysicsProcess(double delta)
     {
@@ -29,14 +25,6 @@ public partial class Player : CharacterBody3D
             GameConstants.INPUT_MOVE_LEFT, GameConstants.INPUT_MOVE_RIGHT, GameConstants.INPUT_MOVE_FORWARD, GameConstants.INPUT_MOVE_BACKWARD
         );
 
-        if (direction == Vector2.Zero)
-        {
-            animSprite.Play(GameConstants.ANIM_IDLE);
-        }
-        else
-        {
-            animSprite.Play(GameConstants.ANIM_MOVE);
-        }
     }
 
     private void Flip()
