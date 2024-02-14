@@ -168,10 +168,10 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animSprite", "stateMachineNode")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimSprite", "StateMachineNode")]
 script = ExtResource("1_jx1ny")
-animSprite = NodePath("AnimatedSprite3D")
-stateMachineNode = NodePath("StateMachine")
+AnimSprite = NodePath("AnimatedSprite3D")
+StateMachineNode = NodePath("StateMachine")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 texture_filter = 0

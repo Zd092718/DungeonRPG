@@ -4,9 +4,9 @@ using System;
 public partial class Player : CharacterBody3D
 {
     [ExportGroup("Required Nodes")]
-    [Export] public AnimatedSprite3D animSprite;
-    [Export] public Camera3D camera;
-    [Export] public StateMachine stateMachineNode;
+    [Export] public AnimatedSprite3D AnimSprite { get; private set; }
+    [Export] public Camera3D Camera { get; private set; }
+    [Export] public StateMachine StateMachineNode { get; private set; }
     public Vector2 direction = new();
 
     public override void _Input(InputEvent @event)
@@ -24,6 +24,6 @@ public partial class Player : CharacterBody3D
         if (isNotMovingHorizontally) { return; }
 
         bool isMovingLeft = Velocity.X < 0;
-        animSprite.FlipH = isMovingLeft;
+        AnimSprite.FlipH = isMovingLeft;
     }
 }
