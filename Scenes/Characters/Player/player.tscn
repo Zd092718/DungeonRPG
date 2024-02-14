@@ -1,12 +1,18 @@
-[gd_scene load_steps=36 format=3 uid="uid://dsa8gd6jp0dod"]
+[gd_scene load_steps=43 format=3 uid="uid://dsa8gd6jp0dod"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Player/Player.cs" id="1_jx1ny"]
 [ext_resource type="Texture2D" uid="uid://ctylp3ilq5deg" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_000.png" id="1_vx0mv"]
 [ext_resource type="Texture2D" uid="uid://cd7p6t1tnocqy" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_001.png" id="2_d1rc5"]
+[ext_resource type="Texture2D" uid="uid://dhrm5bgd30ra0" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_000.png" id="2_dnsly"]
+[ext_resource type="Texture2D" uid="uid://btqhb7oqd4qaq" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_001.png" id="3_ggs8b"]
 [ext_resource type="Texture2D" uid="uid://b6r03ks2visic" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_002.png" id="3_kh4dt"]
 [ext_resource type="Texture2D" uid="uid://dfjc777ly4yed" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_003.png" id="4_2swkp"]
+[ext_resource type="Texture2D" uid="uid://b61gd02o1vuyx" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_002.png" id="4_hiwbh"]
 [ext_resource type="Texture2D" uid="uid://d2rr324rw2fem" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_004.png" id="5_2kal4"]
+[ext_resource type="Texture2D" uid="uid://cqmsmijd5fdei" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_003.png" id="5_kl70p"]
+[ext_resource type="Texture2D" uid="uid://bcyrf4uidp7r4" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_004.png" id="6_8cjai"]
 [ext_resource type="Texture2D" uid="uid://dojq83bsno8vx" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_005.png" id="6_rtg8u"]
+[ext_resource type="Texture2D" uid="uid://dpsfp8qg3fsbh" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_005.png" id="7_g7b6s"]
 [ext_resource type="Texture2D" uid="uid://c7vep2umwnl2d" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_006.png" id="7_s68d2"]
 [ext_resource type="Texture2D" uid="uid://bypsqmk67yfvu" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_007.png" id="8_ytu20"]
 [ext_resource type="Texture2D" uid="uid://dlqq253xbiptk" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_008.png" id="9_a4rd2"]
@@ -34,9 +40,33 @@
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerIdleState.cs" id="32_vj1gx"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerMoveState.cs" id="33_yhvwi"]
 [ext_resource type="Script" path="res://Scripts/Characters/StateMachine.cs" id="34_1l6wh"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerDashState.cs" id="41_1d6x2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nvea7"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dnsly")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ggs8b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hiwbh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kl70p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8cjai")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_g7b6s")
+}],
+"loop": false,
+"name": &"Dash",
+"speed": 6.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_vx0mv")
@@ -146,16 +176,23 @@ stateMachineNode = NodePath("StateMachine")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_nvea7")
-animation = &"Move"
-frame_progress = 0.537567
-
-[node name="IdleState" type="Node" parent="."]
-script = ExtResource("32_vj1gx")
-
-[node name="MoveState" type="Node" parent="."]
-script = ExtResource("33_yhvwi")
+animation = &"Dash"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("currentState", "states")]
 script = ExtResource("34_1l6wh")
-currentState = NodePath("../IdleState")
-states = [NodePath("../IdleState"), NodePath("../MoveState")]
+currentState = NodePath("IdleState")
+states = [NodePath("IdleState"), NodePath("MoveState"), NodePath("DashState")]
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("32_vj1gx")
+
+[node name="MoveState" type="Node" parent="StateMachine"]
+script = ExtResource("33_yhvwi")
+
+[node name="DashState" type="Node" parent="StateMachine" node_paths=PackedStringArray("dashTimerNode")]
+script = ExtResource("41_1d6x2")
+dashTimerNode = NodePath("DashTimer")
+
+[node name="DashTimer" type="Timer" parent="StateMachine/DashState"]
+wait_time = 0.4
+one_shot = true
