@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dsa8gd6jp0dod"]
+[gd_scene load_steps=44 format=3 uid="uid://dsa8gd6jp0dod"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Player/Player.cs" id="1_jx1ny"]
 [ext_resource type="Texture2D" uid="uid://ctylp3ilq5deg" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_000.png" id="1_vx0mv"]
@@ -168,15 +168,21 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ffpsp"]
+radius = 0.522355
+height = 1.64266
+
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimSprite", "StateMachineNode")]
+collision_layer = 2
 script = ExtResource("1_jx1ny")
 AnimSprite = NodePath("AnimatedSprite3D")
 StateMachineNode = NodePath("StateMachine")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+pixel_size = 0.0025
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_nvea7")
-animation = &"Dash"
+animation = &"Idle"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("currentState", "states")]
 script = ExtResource("34_1l6wh")
@@ -196,3 +202,7 @@ dashTimerNode = NodePath("DashTimer")
 [node name="DashTimer" type="Timer" parent="StateMachine/DashState"]
 wait_time = 0.4
 one_shot = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00415301, 0.0625617, 0.0151956)
+shape = SubResource("CapsuleShape3D_ffpsp")
