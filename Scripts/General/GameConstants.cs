@@ -1,6 +1,6 @@
 ﻿public class GameConstants
 {
-    //Animations
+    //Player Animations
     public const string ANIM_IDLE = "Idle";
     public const string ANIM_MOVE = "Move";
     public const string ANIM_DASH = "Dash";
