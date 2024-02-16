@@ -1,4 +1,4 @@
-[gd_scene load_steps=106 format=3 uid="uid://dvde7dhdn0ov2"]
+[gd_scene load_steps=107 format=3 uid="uid://dvde7dhdn0ov2"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Enemy/Enemy.cs" id="1_d5wuy"]
 [ext_resource type="Texture2D" uid="uid://cd7pyynsf6q6u" path="res://Assets/Sprites/Characters/Enemy Knight/Attack/0_Demons_of_Darkness_Slashing_000.png" id="1_ox1ik"]
@@ -103,6 +103,7 @@
 [ext_resource type="PackedScene" uid="uid://badfahkby85as" path="res://Scenes/Characters/state_machine.tscn" id="100_qb05g"]
 [ext_resource type="Script" path="res://Scripts/Characters/Enemy/EnemyIdleState.cs" id="101_xwqlo"]
 [ext_resource type="Script" path="res://Scripts/Characters/Enemy/EnemyReturnState.cs" id="103_uyhq1"]
+[ext_resource type="Script" path="res://Scripts/Characters/Enemy/EnemyPatrolState.cs" id="104_qvf7h"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_65q0m"]
 animations = [{
@@ -432,10 +433,11 @@ animations = [{
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gykee"]
 height = 1.6887
 
-[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("AnimSprite", "StateMachineNode")]
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("AnimSprite", "StateMachineNode", "AgentNode")]
 script = ExtResource("1_d5wuy")
 AnimSprite = NodePath("AnimatedSprite3D")
 StateMachineNode = NodePath("StateMachine")
+AgentNode = NodePath("NavigationAgent3D")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 pixel_size = 0.0025
@@ -448,11 +450,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0395869, 0)
 shape = SubResource("CapsuleShape3D_gykee")
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("currentState", "states") instance=ExtResource("100_qb05g")]
-currentState = NodePath("ReturnState")
-states = [NodePath("IdleState"), NodePath("ReturnState")]
+currentState = NodePath("IdleState")
+states = [NodePath("IdleState"), NodePath("ReturnState"), NodePath("PatrolState")]
 
 [node name="IdleState" type="Node" parent="StateMachine"]
 script = ExtResource("101_xwqlo")
 
 [node name="ReturnState" type="Node" parent="StateMachine"]
 script = ExtResource("103_uyhq1")
+
+[node name="PatrolState" type="Node" parent="StateMachine"]
+script = ExtResource("104_qvf7h")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
