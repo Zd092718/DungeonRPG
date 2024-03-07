@@ -10,6 +10,7 @@ public abstract partial class Character : CharacterBody3D
     [Export] public StateMachine StateMachineNode { get; private set; }
     [Export] public Area3D HurtboxAreaNode { get; private set; }
     [Export] public Area3D HitboxAreaNode { get; private set; }
+    [Export] public CollisionShape3D HitboxShapeNode { get; private set; }
 
     [ExportGroup("AI Nodes")]
     [Export] public Path3D PathNode { get; private set; }
@@ -47,5 +48,10 @@ public abstract partial class Character : CharacterBody3D
 
         bool isMovingLeft = Velocity.X < 0;
         AnimSprite.FlipH = isMovingLeft;
+    }
+
+    public void ToggleHitbox(bool flag)
+    {
+        HitboxShapeNode.Disabled = flag;
     }
 }
