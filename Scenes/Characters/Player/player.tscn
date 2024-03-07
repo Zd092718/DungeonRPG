@@ -293,7 +293,7 @@ height = 1.64266
 [sub_resource type="BoxShape3D" id="BoxShape3D_r3qll"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimSprite", "StateMachineNode")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimSprite", "StateMachineNode", "HitboxAreaNode")]
 collision_layer = 2
 collision_mask = 5
 floor_max_angle = 1.55334
@@ -302,12 +302,15 @@ script = ExtResource("1_jx1ny")
 stats = Array[Object]([SubResource("Resource_g22h1"), SubResource("Resource_s6a8d")])
 AnimSprite = NodePath("AnimatedSprite3D")
 StateMachineNode = NodePath("StateMachine")
+HitboxAreaNode = NodePath("Hitbox")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 pixel_size = 0.0025
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_nvea7")
 animation = &"Attack2"
+frame = 11
+frame_progress = 1.0
 
 [node name="StateMachine" parent="." node_paths=PackedStringArray("currentState", "states") instance=ExtResource("38_k6c02")]
 currentState = NodePath("IdleState")
@@ -340,7 +343,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00415301, 0.0625617, 0.015
 shape = SubResource("CapsuleShape3D_ffpsp")
 
 [node name="Hitbox" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.817499, 0, 0)
 collision_layer = 2
 collision_mask = 0
 

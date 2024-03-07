@@ -16,6 +16,7 @@ public partial class PlayerAttackState : PlayerState
     protected override void EnterState()
     {
         characterNode.AnimSprite.Play(GameConstants.ANIM_ATTACK + comboCounter, 2f);
+        PerformHit();
         characterNode.AnimSprite.AnimationFinished += HandleAnimationFinished;
     }
 
@@ -30,6 +31,14 @@ public partial class PlayerAttackState : PlayerState
         comboCounter = Mathf.Wrap(comboCounter, 1, maxComboCount + 1);
         
         characterNode.StateMachineNode.SwitchState<PlayerIdleState>();
+    }
+
+    private void PerformHit()
+    {
+        Vector3 newPos = characterNode.AnimSprite.FlipH ? Vector3.Left : Vector3.Right;
+        float distanceMultiplier = 0.75f;
+        newPos *= distanceMultiplier;
+        characterNode.HitboxAreaNode.Position = newPos;
     }
     
 }
