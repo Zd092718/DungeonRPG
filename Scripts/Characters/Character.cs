@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System.Linq;
 
 public abstract partial class Character : CharacterBody3D
 {
@@ -24,7 +25,17 @@ public abstract partial class Character : CharacterBody3D
     }
     private void HandleHurtboxAreaEntered(Area3D area)
     {
-        GD.Print($"{area.Name} hit");
+        StatResource health = GetStatResource(Stat.Health);
+
+        Character player = area.GetOwner<Character>();
+
+        health.StatValue -= player.GetStatResource(Stat.Strength).StatValue;
+        
+        GD.Print(health.StatValue);
+    }
+    public StatResource GetStatResource(Stat stat)
+    {
+        return stats.FirstOrDefault(e => e.StatType == stat);
     }
 
     public void Flip()
