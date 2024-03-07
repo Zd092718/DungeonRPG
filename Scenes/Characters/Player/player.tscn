@@ -1,10 +1,11 @@
-[gd_scene load_steps=69 format=3 uid="uid://dsa8gd6jp0dod"]
+[gd_scene load_steps=73 format=3 uid="uid://dsa8gd6jp0dod"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Player/Player.cs" id="1_jx1ny"]
 [ext_resource type="Texture2D" uid="uid://ctylp3ilq5deg" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_000.png" id="1_vx0mv"]
 [ext_resource type="Texture2D" uid="uid://lf0qykr606cn" path="res://Assets/Sprites/Characters/Player/Kicking/Kicking_000.png" id="2_bsrp4"]
 [ext_resource type="Texture2D" uid="uid://cd7p6t1tnocqy" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_001.png" id="2_d1rc5"]
 [ext_resource type="Texture2D" uid="uid://dhrm5bgd30ra0" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_000.png" id="2_dnsly"]
+[ext_resource type="Script" path="res://Scripts/Resources/StatResource.cs" id="2_ecwiy"]
 [ext_resource type="Texture2D" uid="uid://b6livgi7pe01w" path="res://Assets/Sprites/Characters/Player/Kicking/Kicking_001.png" id="3_dt2sc"]
 [ext_resource type="Texture2D" uid="uid://btqhb7oqd4qaq" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_001.png" id="3_ggs8b"]
 [ext_resource type="Texture2D" uid="uid://b6r03ks2visic" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_002.png" id="3_kh4dt"]
@@ -66,6 +67,16 @@
 [ext_resource type="PackedScene" uid="uid://badfahkby85as" path="res://Scenes/Characters/state_machine.tscn" id="38_k6c02"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerDashState.cs" id="41_1d6x2"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerAttackState.cs" id="66_s3wpb"]
+
+[sub_resource type="Resource" id="Resource_g22h1"]
+script = ExtResource("2_ecwiy")
+StatType = 0
+StatValue = 100.0
+
+[sub_resource type="Resource" id="Resource_s6a8d"]
+script = ExtResource("2_ecwiy")
+StatType = 1
+StatValue = 3.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nvea7"]
 animations = [{
@@ -279,12 +290,16 @@ animations = [{
 radius = 0.522355
 height = 1.64266
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_r3qll"]
+size = Vector3(0.5, 0.5, 0.5)
+
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AnimSprite", "StateMachineNode")]
 collision_layer = 2
 collision_mask = 5
 floor_max_angle = 1.55334
 floor_snap_length = 0.2
 script = ExtResource("1_jx1ny")
+stats = Array[Object]([SubResource("Resource_g22h1"), SubResource("Resource_s6a8d")])
 AnimSprite = NodePath("AnimatedSprite3D")
 StateMachineNode = NodePath("StateMachine")
 
@@ -323,3 +338,11 @@ one_shot = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00415301, 0.0625617, 0.0151956)
 shape = SubResource("CapsuleShape3D_ffpsp")
+
+[node name="Hitbox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.817499, 0, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("BoxShape3D_r3qll")
