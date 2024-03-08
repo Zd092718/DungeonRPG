@@ -17,6 +17,8 @@ public partial class StateMachine : Node
         Node newState = states.FirstOrDefault((state) => state is T);
 
         if (newState == null) { return; }
+        
+        if(currentState is T) { return; }
 
 
         currentState.Notification(GameConstants.NOTIFICATION_EXIT_STATE);
