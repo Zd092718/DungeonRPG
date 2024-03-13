@@ -1,11 +1,12 @@
-[gd_scene load_steps=89 format=3 uid="uid://dsa8gd6jp0dod"]
+[gd_scene load_steps=88 format=3 uid="uid://dsa8gd6jp0dod"]
 
 [ext_resource type="Script" path="res://Scripts/Characters/Player/Player.cs" id="1_jx1ny"]
 [ext_resource type="Texture2D" uid="uid://ctylp3ilq5deg" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_000.png" id="1_vx0mv"]
 [ext_resource type="Texture2D" uid="uid://lf0qykr606cn" path="res://Assets/Sprites/Characters/Player/Kicking/Kicking_000.png" id="2_bsrp4"]
 [ext_resource type="Texture2D" uid="uid://cd7p6t1tnocqy" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_001.png" id="2_d1rc5"]
 [ext_resource type="Texture2D" uid="uid://dhrm5bgd30ra0" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_000.png" id="2_dnsly"]
-[ext_resource type="Script" path="res://Scripts/Resources/StatResource.cs" id="2_ecwiy"]
+[ext_resource type="Resource" uid="uid://cbdhxfiijge0q" path="res://Resources/player_health_stat.tres" id="2_uyvuw"]
+[ext_resource type="Resource" uid="uid://b5sgwfll767cc" path="res://Resources/player_strength_stat.tres" id="3_bp5mx"]
 [ext_resource type="Texture2D" uid="uid://b6livgi7pe01w" path="res://Assets/Sprites/Characters/Player/Kicking/Kicking_001.png" id="3_dt2sc"]
 [ext_resource type="Texture2D" uid="uid://btqhb7oqd4qaq" path="res://Assets/Sprites/Characters/Player/Sliding/Sliding_001.png" id="3_ggs8b"]
 [ext_resource type="Texture2D" uid="uid://b6r03ks2visic" path="res://Assets/Sprites/Characters/Player/Idle Blinking/Idle Blinking_002.png" id="3_kh4dt"]
@@ -83,16 +84,6 @@
 [ext_resource type="Texture2D" uid="uid://ctkt8gbxb0ig" path="res://Assets/Sprites/Characters/Player/Dying/Dying_014.png" id="47_88lyi"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerAttackState.cs" id="66_s3wpb"]
 [ext_resource type="Script" path="res://Scripts/Characters/Player/PlayerDeathState.cs" id="83_y6wyf"]
-
-[sub_resource type="Resource" id="Resource_g22h1"]
-script = ExtResource("2_ecwiy")
-StatType = 0
-StatValue = 100.0
-
-[sub_resource type="Resource" id="Resource_s6a8d"]
-script = ExtResource("2_ecwiy")
-StatType = 1
-StatValue = 3.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nvea7"]
 animations = [{
@@ -365,7 +356,7 @@ collision_mask = 5
 floor_max_angle = 1.55334
 floor_snap_length = 0.2
 script = ExtResource("1_jx1ny")
-stats = Array[Object]([SubResource("Resource_g22h1"), SubResource("Resource_s6a8d")])
+stats = Array[Object]([ExtResource("2_uyvuw"), ExtResource("3_bp5mx")])
 AnimSprite = NodePath("AnimatedSprite3D")
 StateMachineNode = NodePath("StateMachine")
 HurtboxAreaNode = NodePath("Hurtbox")
