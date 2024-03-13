@@ -8,6 +8,11 @@ public partial class Camera : Camera3D
     public override void _Ready()
     {
         GameEvents.OnStartGame += HandleStartGame;
+        GameEvents.OnEndGame += HandleEndGame;
+    }
+    private void HandleEndGame()
+    {
+        Reparent(GetTree().CurrentScene);
     }
     private void HandleStartGame()
     {
