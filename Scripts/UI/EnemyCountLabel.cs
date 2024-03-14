@@ -9,7 +9,6 @@ public partial class EnemyCountLabel : Label
     }
     private void HandleNewEnemyCount(int count)
     {
-        GD.Print(count);
         Text = count.ToString();
     }
 }

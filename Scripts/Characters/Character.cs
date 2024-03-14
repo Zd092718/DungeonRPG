@@ -33,7 +33,6 @@ public abstract partial class Character : CharacterBody3D
 
         health.StatValue -= player.GetStatResource(Stat.Strength).StatValue;
         
-        GD.Print(health.StatValue);
     }
     public StatResource GetStatResource(Stat stat)
     {
