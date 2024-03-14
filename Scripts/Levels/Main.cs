@@ -7,12 +7,4 @@ public partial class Main : Node3D
     {
         GetTree().Paused = true;
     }
-    public override void _Process(double delta)
-    {
-        // For testing only
-        if (Input.IsKeyPressed(Key.Escape))
-        {
-            GetTree().Quit();
-        }
-    }
 }
