@@ -8,6 +8,7 @@ public partial class PlayerDeathState : PlayerState
         characterNode.AnimSprite.Play(GameConstants.ANIM_DEATH);
 
         characterNode.AnimSprite.AnimationFinished += HandleAnimationFinished;
+        
     }
     private void HandleAnimationFinished()
     {
