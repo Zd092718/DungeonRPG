@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://70sdxpsqi5v7"]
+[gd_scene load_steps=18 format=3 uid="uid://70sdxpsqi5v7"]
 
 [ext_resource type="Texture2D" uid="uid://cgee46hk0opr1" path="res://Assets/Sprites/Effects/Explosion/10.png" id="1_8sm7n"]
 [ext_resource type="Script" path="res://Scripts/Abilities/Bomb.cs" id="1_50pyc"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bwhpu3hso1q1s" path="res://Assets/Sprites/Effects/Explosion/7.png" id="9_k1s3s"]
 [ext_resource type="Texture2D" uid="uid://d14lua7fo81a2" path="res://Assets/Sprites/Effects/Explosion/8.png" id="10_v6pup"]
 [ext_resource type="Texture2D" uid="uid://ck5d0j03j7veg" path="res://Assets/Sprites/Effects/Explosion/9.png" id="11_n2lex"]
+[ext_resource type="Script" path="res://Scripts/Abilities/BombHitbox.cs" id="13_x7m17"]
 
 [sub_resource type="Animation" id="Animation_e2tow"]
 resource_name = "Expand"
@@ -71,7 +72,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../Hurtbox/CollisionShape3D:disabled")
+tracks/2/path = NodePath("../Hitbox/CollisionShape3D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -106,9 +107,11 @@ libraries = {
 }
 autoplay = "Expand"
 
-[node name="Hurtbox" type="Area3D" parent="."]
+[node name="Hitbox" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("13_x7m17")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 shape = SubResource("SphereShape3D_7ss03")
+disabled = true
