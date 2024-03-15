@@ -146,7 +146,7 @@ script = ExtResource("11_b3bv5")
 SpriteTexture = ExtResource("10_rxpvd")
 Description = "+4 Damage"
 TargetStat = 1
-Amount = 0.0
+Amount = 4.0
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_h3vb2")
